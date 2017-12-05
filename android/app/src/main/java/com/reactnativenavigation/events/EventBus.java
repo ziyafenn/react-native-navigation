@@ -1,5 +1,7 @@
 package com.reactnativenavigation.events;
 
+import com.reactnativenavigation.NavigationApplication;
+
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,15 @@ public enum EventBus {
     public void register(Subscriber subscriber) {
         if (isSubscribed(subscriber)) return;
         subscribers.add(new WeakReference<>(subscriber));
+    }
+
+    public void postUnregister(final Subscriber subscriber) {
+        NavigationApplication.instance.runOnMainThread(new Runnable() {
+            @Override
+            public void run() {
+                unregister(subscriber);
+            }
+        });
     }
 
     public void unregister(Subscriber subscriber) {

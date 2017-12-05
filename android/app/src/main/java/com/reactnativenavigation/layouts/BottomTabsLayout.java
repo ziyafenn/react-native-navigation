@@ -469,6 +469,7 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
             lightBox = null;
         }
         slidingOverlaysQueue.destroy();
+        removeAllViews();
     }
 
     @Override

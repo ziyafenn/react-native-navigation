@@ -37,7 +37,7 @@ public class SnackbarAndFabContainer extends CoordinatorLayout implements Snakba
     }
 
     public void destroy() {
-        EventBus.instance.unregister(this);
+        EventBus.instance.postUnregister(this);
     }
 
     @Override

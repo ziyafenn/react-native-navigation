@@ -142,6 +142,7 @@ public class SingleScreenLayout extends BaseLayout {
             lightBox.destroy();
         }
         slidingOverlaysQueue.destroy();
+        removeAllViews();
     }
 
     @Override
