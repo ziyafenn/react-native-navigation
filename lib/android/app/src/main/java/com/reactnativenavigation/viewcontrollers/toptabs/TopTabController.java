@@ -7,14 +7,14 @@ import com.reactnativenavigation.parse.NavigationOptions;
 import com.reactnativenavigation.presentation.NavigationOptionsListener;
 import com.reactnativenavigation.viewcontrollers.ContainerViewController;
 import com.reactnativenavigation.viewcontrollers.ViewController;
-import com.reactnativenavigation.views.TopTab;
+import com.reactnativenavigation.views.TopTabLayout;
 
 public class TopTabController extends ViewController implements NavigationOptionsListener {
 
     private final String containerName;
     private ContainerViewController.ReactViewCreator viewCreator;
     private final NavigationOptions options;
-    private TopTab topTab;
+    private TopTabLayout topTab;
     private boolean isSelectedTab;
 
     public TopTabController(Activity activity, String id, String name, ContainerViewController.ReactViewCreator viewCreator, NavigationOptions initialOptions) {
@@ -51,7 +51,7 @@ public class TopTabController extends ViewController implements NavigationOption
 
     @Override
     public View createView() {
-        topTab = new TopTab(
+        topTab = new TopTabLayout(
                 getActivity(),
                 viewCreator.create(getActivity(), getId(), containerName)
         );

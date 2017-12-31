@@ -8,11 +8,11 @@ import android.widget.FrameLayout;
 import com.reactnativenavigation.viewcontrollers.ContainerViewController.IReactView;
 
 @SuppressLint("ViewConstructor")
-public class TopTab extends FrameLayout implements IReactView {
+public class TopTabLayout extends FrameLayout implements IReactView {
 
 	private final IReactView reactView;
 
-	public TopTab(Context context, IReactView reactView) {
+	public TopTabLayout(Context context, IReactView reactView) {
 		super(context);
 		this.reactView = reactView;
         addView(reactView.asView());
