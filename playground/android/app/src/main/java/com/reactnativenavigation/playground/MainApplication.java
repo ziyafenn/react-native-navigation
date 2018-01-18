@@ -1,11 +1,13 @@
 package com.reactnativenavigation.playground;
 
-import android.support.annotation.*;
+import android.support.annotation.Nullable;
 
-import com.facebook.react.*;
-import com.reactnativenavigation.*;
+import com.facebook.react.ReactPackage;
+import com.reactnativenavigation.NavigationApplication;
+import com.wix.interactable.Interactable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainApplication extends NavigationApplication {
 
@@ -17,6 +19,8 @@ public class MainApplication extends NavigationApplication {
     @Nullable
     @Override
     public List<ReactPackage> createAdditionalReactPackages() {
-        return null;
+        ArrayList<ReactPackage> objects = new ArrayList<>();
+        objects.add(new Interactable());
+        return objects;
     }
 }
