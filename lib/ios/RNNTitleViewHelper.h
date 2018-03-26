@@ -1,13 +1,6 @@
-//
-//  RNNTitleViewHelper.h
-//  ReactNativeNavigation
-//
-//  Created by Yogev Ben David on 22/03/2018.
-//  Copyright © 2018 Wix. All rights reserved.
-//
-
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "RNNTitleOptions.h"
 
 @interface RNNTitleView : UIView
 
@@ -25,7 +18,7 @@
 	  titleImageData:(id)titleImageData
 	   isSetSubtitle:(BOOL)isSetSubtitle;
 
--(void)setup:(NSDictionary*)style;
+-(void)setup:(RNNTitleOptions*)style;
 
 @end
 
