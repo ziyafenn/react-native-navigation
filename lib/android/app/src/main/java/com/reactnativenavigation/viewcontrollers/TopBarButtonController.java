@@ -141,7 +141,7 @@ public class TopBarButtonController extends ViewController<TitleBarReactButtonVi
             return;
         }
         if (button.disableIconTint.isTrue()) {
-            UiUtils.tintDrawable(icon, button.buttonColor);
+            UiUtils.tintDrawable(icon, button.disabledColor);
         } else {
             UiUtils.tintDrawable(icon, Color.LTGRAY);
         }

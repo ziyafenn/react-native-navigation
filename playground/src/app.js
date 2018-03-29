@@ -24,7 +24,7 @@ function start() {
   registerScreens();
   Navigation.events().onAppLaunched(() => {
     Navigation.setDefaultOptions({
-      _animations: {
+      animations: {
         startApp: {
           y: {
             from: 1000,
@@ -47,44 +47,54 @@ function start() {
               to: 1,
               duration: 500,
               interpolation: 'accelerate'
+            },
+            scaleX: {
+              from: 0,
+              to: 1,
+              duration: 500,
+              interpolation: 'accelerate'
+            },
+            scaleY: {
+              from: 0,
+              to: 1,
+              duration: 500,
+              interpolation: 'accelerate'
             }
           },
           bottomTabs: {
-            y: {
-              from: 1000,
-              to: 0,
-              duration: 500,
-              interpolation: 'decelerate',
-            },
             alpha: {
               from: 0,
               to: 1,
               duration: 500,
               interpolation: 'decelerate'
-            }
-          },
-          bottomTabs: {
-            y: {
-              from: 1000,
-              to: 0,
-              duration: 500,
-              interpolation: 'decelerate',
             },
-            alpha: {
+            scaleX: {
               from: 0,
               to: 1,
               duration: 500,
-              interpolation: 'decelerate'
+              interpolation: 'accelerate'
+            },
+            scaleY: {
+              from: 0,
+              to: 1,
+              duration: 500,
+              interpolation: 'accelerate'
             }
           },
           content: {
-            y: {
-              from: 1000,
-              to: 0,
-              duration: 500,
-              interpolation: 'accelerate',
-            },
             alpha: {
+              from: 0,
+              to: 1,
+              duration: 500,
+              interpolation: 'accelerate'
+            },
+            scaleX: {
+              from: 0,
+              to: 1,
+              duration: 500,
+              interpolation: 'accelerate'
+            },
+            scaleY: {
               from: 0,
               to: 1,
               duration: 500,
@@ -100,16 +110,14 @@ function start() {
               to: 0,
               duration: 500,
               interpolation: 'accelerate'
-            }
-          },
-          bottomTabs: {
-            y: {
-              from: 0,
-              to: 100,
-              duration: 500,
-              interpolation: 'accelerate',
             },
-            alpha: {
+            scaleX: {
+              from: 1,
+              to: 0,
+              duration: 500,
+              interpolation: 'accelerate'
+            },
+            scaleY: {
               from: 1,
               to: 0,
               duration: 500,
@@ -117,31 +125,43 @@ function start() {
             }
           },
           bottomTabs: {
-            y: {
-              from: 0,
-              to: 100,
-              duration: 500,
-              interpolation: 'decelerate',
-            },
             alpha: {
               from: 1,
               to: 0,
               duration: 500,
-              interpolation: 'decelerate'
+              interpolation: 'accelerate'
+            },
+            scaleX: {
+              from: 1,
+              to: 0,
+              duration: 500,
+              interpolation: 'accelerate'
+            },
+            scaleY: {
+              from: 1,
+              to: 0,
+              duration: 500,
+              interpolation: 'accelerate'
             }
           },
           content: {
-            y: {
-              from: 0,
-              to: 1000,
-              duration: 500,
-              interpolation: 'decelerate',
-            },
             alpha: {
               from: 1,
               to: 0,
               duration: 500,
-              interpolation: 'decelerate'
+              interpolation: 'accelerate'
+            },
+            scaleX: {
+              from: 1,
+              to: 0,
+              duration: 500,
+              interpolation: 'accelerate'
+            },
+            scaleY: {
+              from: 1,
+              to: 0,
+              duration: 500,
+              interpolation: 'accelerate'
             }
           }
         }
