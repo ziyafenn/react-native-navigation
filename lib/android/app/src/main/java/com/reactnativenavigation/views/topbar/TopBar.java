@@ -162,10 +162,12 @@ public class TopBar extends AppBarLayout implements ScrollEventListener.ScrollAw
 
     public void enableCollapse(ScrollEventListener scrollEventListener) {
         collapsingBehavior.enableCollapse(scrollEventListener);
+        if (topTabs != null) topTabs.enableCollapse(scrollEventListener);
     }
 
     public void disableCollapse() {
         collapsingBehavior.disableCollapse();
+        if (topTabs != null) topTabs.disableCollapse();
     }
 
     public void show() {
