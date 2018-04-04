@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.reactnativenavigation.anim.TitleBarCollapseBehavior;
 import com.reactnativenavigation.interfaces.ScrollEventListener;
 import com.reactnativenavigation.parse.Alignment;
 import com.reactnativenavigation.parse.params.Button;
@@ -33,8 +34,9 @@ public class TitleBar extends Toolbar implements ScrollEventListener.ScrollAware
     private final TopBarButtonController.OnClickListener onClickListener;
     private final List<TopBarButtonController> rightButtonControllers = new ArrayList<>();
     private TopBarButtonController leftButtonController;
+    private TitleBarCollapseBehavior collapseBehavior;
 
-    public TitleBar(Context context, ReactViewCreator buttonCreator, TitleBarReactViewCreator reactViewCreator, TopBarButtonController.OnClickListener onClickListener) {
+    public TitleBar(Context context, ReactViewCreator buttonCreator, TitleBarReactViewCreator reactViewCreator, TopBarButtonController.OnClickListener onClickListener, View parent) {
         super(context);
         this.buttonCreator = buttonCreator;
         this.reactViewCreator = reactViewCreator;
@@ -42,6 +44,7 @@ public class TitleBar extends Toolbar implements ScrollEventListener.ScrollAware
         this.onClickListener = onClickListener;
         getMenu();
         setContentDescription("titleBar");
+        collapseBehavior = new TitleBarCollapseBehavior(this, parent);
     }
 
     @Override
@@ -173,5 +176,13 @@ public class TitleBar extends Toolbar implements ScrollEventListener.ScrollAware
             lp.gravity = Gravity.CENTER;
         }
         return lp;
+    }
+
+    public void enableCollapse(ScrollEventListener scrollEventListener) {
+        collapseBehavior.enableCollapse(scrollEventListener);
+    }
+
+    public void disableCollapse() {
+        collapseBehavior.disableCollapse();
     }
 }

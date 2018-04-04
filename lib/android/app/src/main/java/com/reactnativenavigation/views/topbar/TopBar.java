@@ -57,17 +57,17 @@ public class TopBar extends AppBarLayout implements ScrollEventListener.ScrollAw
     }
 
     private void createLayout(ReactViewCreator buttonCreator, TitleBarReactViewCreator titleBarReactViewCreator, TopBarButtonController.OnClickListener onClickListener) {
+        root = new RelativeLayout(getContext());
         topTabs = new TopTabs(getContext(), root);
         titleBar = createTitleBar(getContext(), buttonCreator, titleBarReactViewCreator, onClickListener);
         titleBar.setId(CompatUtils.generateViewId());
-        root = new RelativeLayout(getContext());
         root.addView(titleBar, MATCH_PARENT, WRAP_CONTENT);
         addView(root, MATCH_PARENT, WRAP_CONTENT);
         setContentDescription("TopBar");
     }
 
     protected TitleBar createTitleBar(Context context, ReactViewCreator buttonCreator, TitleBarReactViewCreator reactViewCreator, TopBarButtonController.OnClickListener onClickListener) {
-        return new TitleBar(context, buttonCreator, reactViewCreator, onClickListener);
+        return new TitleBar(context, buttonCreator, reactViewCreator, onClickListener, root);
     }
 
     public void setTitle(String title) {
@@ -160,12 +160,26 @@ public class TopBar extends AppBarLayout implements ScrollEventListener.ScrollAw
 
     public void enableCollapse(ScrollEventListener scrollEventListener) {
         collapsingBehavior.enableCollapse(scrollEventListener);
-//        if (topTabs != null) topTabs.enableCollapse(scrollEventListener);
+    }
+
+    public void enableTitleBarCollapse(ScrollEventListener scrollEventListener) {
+        if (titleBar != null) titleBar.enableCollapse(scrollEventListener);
+    }
+
+    public void enableTopTabsCollapse(ScrollEventListener scrollEventListener) {
+        if (topTabs != null) topTabs.enableCollapse(scrollEventListener);
     }
 
     public void disableCollapse() {
         collapsingBehavior.disableCollapse();
-//        if (topTabs != null) topTabs.disableCollapse();
+    }
+
+    public void disableTitleBarCollapse() {
+        if (titleBar != null) titleBar.disableCollapse();
+    }
+
+    public void disableTopTabsCollapse() {
+        if (topTabs != null) topTabs.disableCollapse();
     }
 
     public void show() {

@@ -30,6 +30,7 @@ public class OptionsPresenter {
         applyTopBarOptions(options.topBarOptions, options.animationsOptions, child);
         applyTopTabsOptions(options.topTabsOptions);
         applyTopTabOptions(options.topTabOptions);
+        setCollapseOptions(options.topTabsOptions, options.topBarOptions, child);
     }
 
     public void applyOrientation(OrientationOptions options) {
@@ -38,14 +39,19 @@ public class OptionsPresenter {
 
     private void applyTopBarOptions(TopBarOptions options, AnimationsOptions animationOptions, Component component) {
         if (options.title.text.hasValue()) topBar.setTitle(options.title.text.get());
-        if (options.title.component.hasValue()) topBar.setTitleComponent(options.title.component.get(), options.title.alignment);
+        if (options.title.component.hasValue())
+            topBar.setTitleComponent(options.title.component.get(), options.title.alignment);
         if (options.title.color.hasValue()) topBar.setTitleTextColor(options.title.color.get());
-        if (options.title.fontSize.hasValue()) topBar.setTitleFontSize(options.title.fontSize.get());
+        if (options.title.fontSize.hasValue())
+            topBar.setTitleFontSize(options.title.fontSize.get());
 
         if (options.subtitle.text.hasValue()) topBar.setSubtitle(options.subtitle.text.get());
-        if (options.subtitle.color.hasValue()) topBar.setSubtitleColor(options.subtitle.color.get());
-        if (options.subtitle.fontFamily != null) topBar.setSubtitleFontFamily(options.subtitle.fontFamily);
-        if (options.subtitle.fontSize.hasValue()) topBar.setTitleFontSize(options.subtitle.fontSize.get());
+        if (options.subtitle.color.hasValue())
+            topBar.setSubtitleColor(options.subtitle.color.get());
+        if (options.subtitle.fontFamily != null)
+            topBar.setSubtitleFontFamily(options.subtitle.fontFamily);
+        if (options.subtitle.fontSize.hasValue())
+            topBar.setTitleFontSize(options.subtitle.fontSize.get());
 
         topBar.setBackgroundColor(options.background.color);
         topBar.setBackgroundComponent(options.background.component);
@@ -71,13 +77,6 @@ public class OptionsPresenter {
         } else if (options.drawBehind.isFalseOrUndefined()) {
             component.drawBelowTopBar(topBar);
         }
-        if (options.hideOnScroll.isTrue()) {
-            if (component instanceof IReactView) {
-                topBar.enableCollapse(((IReactView) component).getScrollEventListener());
-            }
-        } else if (options.hideOnScroll.isFalseOrUndefined()) {
-            topBar.disableCollapse();
-        }
     }
 
     private void applyButtons(ArrayList<Button> leftButtons, ArrayList<Button> rightButtons) {
@@ -92,7 +91,32 @@ public class OptionsPresenter {
     }
 
     private void applyTopTabOptions(TopTabOptions topTabOptions) {
-        if (topTabOptions.fontFamily != null) topBar.setTopTabFontFamily(topTabOptions.tabIndex, topTabOptions.fontFamily);
+        if (topTabOptions.fontFamily != null)
+            topBar.setTopTabFontFamily(topTabOptions.tabIndex, topTabOptions.fontFamily);
+    }
+
+    private void setCollapseOptions(TopTabsOptions topTabsOptions, TopBarOptions topBarOptions, Component component) {
+        if (topBarOptions.hideOnScroll.isTrue()) {
+            if (topTabsOptions.hideOnScroll.isTrueOrUndefined()) {
+                topBar.enableCollapse(((IReactView) component).getScrollEventListener());
+            }
+            if (topTabsOptions.hideOnScroll.isFalse()) {
+                topBar.disableTopTabsCollapse();
+                topBar.enableTitleBarCollapse(((IReactView) component).getScrollEventListener());
+            }
+        }
+        if (topBarOptions.hideOnScroll.isFalseOrUndefined()) {
+            if (topTabsOptions.hideOnScroll.isFalseOrUndefined()) {
+                topBar.disableTopTabsCollapse();
+                topBar.disableTitleBarCollapse();
+                topBar.disableCollapse();
+            }
+            if (topTabsOptions.hideOnScroll.isTrue()) {
+                topBar.disableTitleBarCollapse();
+                topBar.disableCollapse();
+                topBar.enableTopTabsCollapse(((IReactView) component).getScrollEventListener());
+            }
+        }
     }
 
     public void onChildWillDisappear(Options disappearing, Options appearing, @NonNull ChildDisappearListener childDisappearListener) {
@@ -114,6 +138,7 @@ public class OptionsPresenter {
         mergeTopBarOptions(options.topBarOptions, options.animationsOptions, child);
         mergeTopTabsOptions(options.topTabsOptions);
         mergeTopTabOptions(options.topTabOptions);
+        setCollapseOptions(options.topTabsOptions, options.topBarOptions, child);
     }
 
     private void mergeOrientation(OrientationOptions orientationOptions) {
@@ -127,14 +152,18 @@ public class OptionsPresenter {
 
     private void mergeTopBarOptions(TopBarOptions options, AnimationsOptions animationsOptions, Component component) {
         if (options.title.text.hasValue()) topBar.setTitle(options.title.text.get());
-        if (options.title.component.hasValue()) topBar.setTitleComponent(options.title.component.get(), options.title.alignment);
+        if (options.title.component.hasValue())
+            topBar.setTitleComponent(options.title.component.get(), options.title.alignment);
         if (options.title.color.hasValue()) topBar.setTitleTextColor(options.title.color.get());
-        if (options.title.fontSize.hasValue()) topBar.setTitleFontSize(options.title.fontSize.get());
+        if (options.title.fontSize.hasValue())
+            topBar.setTitleFontSize(options.title.fontSize.get());
 
         if (options.subtitle.text.hasValue()) topBar.setSubtitle(options.subtitle.text.get());
-        if (options.subtitle.color.hasValue()) topBar.setSubtitleColor(options.subtitle.color.get());
+        if (options.subtitle.color.hasValue())
+            topBar.setSubtitleColor(options.subtitle.color.get());
 
-        if (options.background.color.hasValue()) topBar.setBackgroundColor(options.background.color);
+        if (options.background.color.hasValue())
+            topBar.setBackgroundColor(options.background.color);
 
         if (options.testId.hasValue()) topBar.setTestId(options.testId.get());
 
@@ -159,21 +188,17 @@ public class OptionsPresenter {
         if (options.drawBehind.isFalse()) {
             component.drawBelowTopBar(topBar);
         }
-        if (options.hideOnScroll.isTrue() && component instanceof IReactView) {
-            topBar.enableCollapse(((IReactView) component).getScrollEventListener());
-        }
-        if (options.hideOnScroll.isFalse()) {
-            topBar.disableCollapse();
-        }
     }
 
     private void mergeTopTabsOptions(TopTabsOptions options) {
-        if (options.selectedTabColor.hasValue() && options.unselectedTabColor.hasValue()) topBar.applyTopTabsColors(options.selectedTabColor, options.unselectedTabColor);
+        if (options.selectedTabColor.hasValue() && options.unselectedTabColor.hasValue())
+            topBar.applyTopTabsColors(options.selectedTabColor, options.unselectedTabColor);
         if (options.fontSize.hasValue()) topBar.applyTopTabsFontSize(options.fontSize);
         if (options.visible.hasValue()) topBar.setTopTabsVisible(options.visible.isTrue());
     }
 
     private void mergeTopTabOptions(TopTabOptions topTabOptions) {
-        if (topTabOptions.fontFamily != null) topBar.setTopTabFontFamily(topTabOptions.tabIndex, topTabOptions.fontFamily);
+        if (topTabOptions.fontFamily != null)
+            topBar.setTopTabFontFamily(topTabOptions.tabIndex, topTabOptions.fontFamily);
     }
 }
