@@ -4,12 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.reactnativenavigation.anim.TitleBarCollapseBehavior;
@@ -17,12 +14,16 @@ import com.reactnativenavigation.interfaces.ScrollEventListener;
 import com.reactnativenavigation.parse.Alignment;
 import com.reactnativenavigation.parse.params.Button;
 import com.reactnativenavigation.parse.params.Color;
+import com.reactnativenavigation.utils.UiUtils;
+import com.reactnativenavigation.utils.ViewUtils;
 import com.reactnativenavigation.viewcontrollers.ReactViewCreator;
 import com.reactnativenavigation.viewcontrollers.TitleBarReactViewController;
 import com.reactnativenavigation.viewcontrollers.TopBarButtonController;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.annotation.Nullable;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
@@ -72,19 +73,57 @@ public class TitleBar extends Toolbar implements ScrollEventListener.ScrollAware
     }
 
     public void setTitleFontSize(float size) {
-        TextView titleTextView = getTitleTextView();
+        TextView titleTextView = findTitleTextView();
         if (titleTextView != null) titleTextView.setTextSize(size);
     }
 
     public void setTitleTypeface(Typeface typeface) {
-        TextView titleTextView = getTitleTextView();
-        if (titleTextView != null) {
-            titleTextView.setTypeface(typeface);
-        }
+        TextView titleTextView = findTitleTextView();
+        if (titleTextView != null) titleTextView.setTypeface(typeface);
     }
 
-    public TextView getTitleTextView() {
-        return findTextView(this);
+    public void setTitleAlignment(Alignment alignment) {
+        TextView title = findTitleTextView();
+        if (title == null) return;
+        alignTextView(alignment, title);
+    }
+
+    public void setSubtitleTypeface(Typeface typeface) {
+        TextView subtitleTextView = findSubtitleTextView();
+        if (subtitleTextView != null) subtitleTextView.setTypeface(typeface);
+    }
+
+    public void setSubtitleFontSize(float size) {
+        TextView subtitleTextView = findSubtitleTextView();
+        if (subtitleTextView != null) subtitleTextView.setTextSize(size);
+    }
+
+    public void setSubtitleAlignment(Alignment alignment) {
+        TextView subtitle = findSubtitleTextView();
+        if (subtitle == null) return;
+        alignTextView(alignment, subtitle);
+    }
+
+    private void alignTextView(Alignment alignment, TextView view) {
+        view.post(() -> {
+            if (alignment == Alignment.Center) {
+                view.setX((getWidth() - view.getWidth()) / 2);
+            } else {
+                view.setX(UiUtils.dpToPx(getContext(), 16));
+            }
+        });
+    }
+
+    @Nullable
+    public TextView findTitleTextView() {
+        List<TextView> children = ViewUtils.findChildrenByClass(this, TextView.class, textView -> textView.getText().equals(getTitle()));
+        return children.isEmpty() ? null : children.get(0);
+    }
+
+    @Nullable
+    public TextView findSubtitleTextView() {
+        List<TextView> children = ViewUtils.findChildrenByClass(this, TextView.class, textView -> textView.getText().equals(getSubtitle()));
+        return children.isEmpty() ? null : children.get(0);
     }
 
     public void clear() {
@@ -154,20 +193,6 @@ public class TitleBar extends Toolbar implements ScrollEventListener.ScrollAware
 
     public TopBarButtonController createButtonController(Button button) {
         return new TopBarButtonController((Activity) getContext(), button, buttonCreator, onClickListener);
-    }
-
-    @Nullable
-    private TextView findTextView(ViewGroup root) {
-        for (int i = 0; i < root.getChildCount(); i++) {
-            View view = root.getChildAt(i);
-            if (view instanceof ViewGroup) {
-                view = findTextView((ViewGroup) view);
-            }
-            if (view instanceof TextView) {
-                return (TextView) view;
-            }
-        }
-        return null;
     }
 
     public Toolbar.LayoutParams getComponentLayoutParams(Alignment alignment) {

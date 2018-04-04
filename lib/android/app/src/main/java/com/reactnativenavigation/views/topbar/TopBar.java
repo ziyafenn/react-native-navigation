@@ -87,7 +87,15 @@ public class TopBar extends AppBarLayout implements ScrollEventListener.ScrollAw
     }
 
     public void setSubtitleFontFamily(Typeface fontFamily) {
+        titleBar.setSubtitleTypeface(fontFamily);
+    }
 
+    public void setSubtitleFontSize(float size) {
+        titleBar.setSubtitleFontSize(size);
+    }
+
+    public void setSubtitleAlignment(Alignment alignment) {
+        titleBar.setSubtitleAlignment(alignment);
     }
 
     public void setTestId(String testId) {
@@ -104,6 +112,10 @@ public class TopBar extends AppBarLayout implements ScrollEventListener.ScrollAw
 
     public void setTitleTypeface(Typeface typeface) {
         titleBar.setTitleTypeface(typeface);
+    }
+
+    public void setTitleAlignment(Alignment alignment) {
+        titleBar.setTitleAlignment(alignment);
     }
 
     public void setTitleComponent(String componentName, Alignment alignment) {
@@ -246,6 +258,6 @@ public class TopBar extends AppBarLayout implements ScrollEventListener.ScrollAw
 
     @RestrictTo(RestrictTo.Scope.TESTS)
     public TextView getTitleTextView() {
-        return titleBar.getTitleTextView();
+        return titleBar.findTitleTextView();
     }
 }
