@@ -2,12 +2,10 @@ package com.reactnativenavigation.viewcontrollers.toptabs;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 
 import com.reactnativenavigation.parse.Options;
 import com.reactnativenavigation.presentation.NavigationOptionsListener;
-import com.reactnativenavigation.presentation.OptionsPresenter;
 import com.reactnativenavigation.utils.Task;
 import com.reactnativenavigation.viewcontrollers.ParentController;
 import com.reactnativenavigation.viewcontrollers.ViewController;
@@ -84,9 +82,9 @@ public class TopTabsController extends ParentController<TopTabsViewPager> implem
     public void applyChildOptions(Options options, Component child) {
         super.applyChildOptions(options, child);
         applyOnParentController(parentController -> {
-                Options opt = this.options.copy();
-                ((ParentController) parentController).applyChildOptions(opt.clearTopTabOptions().clearTopTabsOptions(), child);
-            }
+                    Options opt = this.options.copy();
+                    ((ParentController) parentController).applyChildOptions(opt.clearTopTabOptions().clearTopTabsOptions(), child);
+                }
         );
     }
 
@@ -96,8 +94,8 @@ public class TopTabsController extends ParentController<TopTabsViewPager> implem
 
     @Override
     public void mergeChildOptions(Options options, Component child) {
-
-        applyOnParentController(parentController -> parentController.mergeChildOptions(options, view));
+        super.mergeChildOptions(options, child);
+        applyOnParentController(parent -> ((ParentController) parent).mergeChildOptions(options, child));
     }
 
     public void switchToTab(int index) {

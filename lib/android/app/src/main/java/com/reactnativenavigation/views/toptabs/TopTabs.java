@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.view.ViewManager;
 
 import com.reactnativenavigation.anim.TopTabsCollapseBehavior;
@@ -16,10 +17,10 @@ public class TopTabs extends TabLayout implements ScrollEventListener.ScrollAwar
     private final TopTabsStyleHelper styleHelper;
     private TopTabsCollapseBehavior collapseBehavior;
 
-    public TopTabs(Context context) {
+    public TopTabs(Context context, View parent) {
         super(context);
         styleHelper = new TopTabsStyleHelper(this);
-        collapseBehavior = new TopTabsCollapseBehavior(this);
+        collapseBehavior = new TopTabsCollapseBehavior(this, parent);
     }
 
     public void setFontFamily(int tabIndex, Typeface fontFamily) {

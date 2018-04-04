@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.reactnativenavigation.interfaces.ScrollEventListener;
 import com.reactnativenavigation.parse.Alignment;
 import com.reactnativenavigation.parse.params.Button;
 import com.reactnativenavigation.parse.params.Color;
@@ -25,7 +26,7 @@ import java.util.List;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 
 @SuppressLint("ViewConstructor")
-public class TitleBar extends Toolbar {
+public class TitleBar extends Toolbar implements ScrollEventListener.ScrollAwareView {
     private final ReactViewCreator buttonCreator;
     private TitleBarReactViewController reactViewController;
     private final TitleBarReactViewCreator reactViewCreator;
