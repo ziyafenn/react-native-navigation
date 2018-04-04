@@ -70,7 +70,7 @@ class ScrollViewScreen extends Component {
   }
 
   componentDidUpdate() {
-    console.log('NIGA', `topbar = ${this.state.topBarHideOnScroll} toptabs = ${this.state.topTabsHideOnScroll}`)
+    console.log('NIGA', `topbar = ${this.state.topBarHideOnScroll} toptabs = ${this.state.topTabsHideOnScroll}`);
     Navigation.setOptions(this.props.componentId, {
       topBar: {
         hideOnScroll: this.state.topBarHideOnScroll
