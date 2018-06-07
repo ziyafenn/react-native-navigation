@@ -54,35 +54,32 @@ class OptionsScreen extends Component {
         testID: testIDs.TOP_BAR_ELEMENT,
         borderColor: 'red',
         borderHeight: 1,
-        rightButtons: [
-          // {
-          //   id: CUSTOM_BUTTON,
-          //   testID: CUSTOM_BUTTON,
-          //   component: 'CustomTextButton'
-          // },
-          {
-            id: CUSTOM_BUTTON2,
-            testID: CUSTOM_BUTTON2,
-            component: {
-              name: 'CustomRoundedButton'
+        buttons: {
+          left: [{
+            id: BUTTON_LEFT,
+            testID: BUTTON_LEFT,
+            icon: require('../../img/navicon_add.png'),
+            title: 'Left',
+            color: 'purple'
+          }],
+          right: [
+            {
+              id: CUSTOM_BUTTON2,
+              testID: CUSTOM_BUTTON2,
+              component: {
+                name: 'CustomRoundedButton'
+              }
+            },
+            {
+              id: BUTTON_ONE,
+              testID: BUTTON_ONE,
+              title: 'One',
+              fontFamily: 'HelveticaNeue-Italic',
+              fontSize: 28,
+              color: 'red'
             }
-          },
-          {
-            id: BUTTON_ONE,
-            testID: BUTTON_ONE,
-            title: 'One',
-            fontFamily: 'HelveticaNeue-Italic',
-            fontSize: 28,
-            color: 'red'
-          }
-        ],
-        leftButtons: [{
-          id: BUTTON_LEFT,
-          testID: BUTTON_LEFT,
-          icon: require('../../img/navicon_add.png'),
-          title: 'Left',
-          color: 'purple'
-        }]
+          ]
+        }
       },
       fab: {
         id: FAB,
@@ -136,36 +133,40 @@ class OptionsScreen extends Component {
     if (id === BUTTON_ONE) {
       Navigation.mergeOptions(this.props.componentId, {
         topBar: {
-          rightButtons: [{
-            id: BUTTON_TWO,
-            testID: BUTTON_TWO,
-            title: 'Two',
-            icon: require('../../img/navicon_add.png'),
-            disableIconTint: true,
-            showAsAction: 'ifRoom',
-            color: 'green',
-            fontSize: 28,
-            fontWeight: '800'
-          }],
-          leftButtons: []
+          buttons: {
+            left: [],
+            right: [{
+              id: BUTTON_TWO,
+              testID: BUTTON_TWO,
+              title: 'Two',
+              icon: require('../../img/navicon_add.png'),
+              disableIconTint: true,
+              showAsAction: 'ifRoom',
+              color: 'green',
+              fontSize: 28,
+              fontWeight: '800'
+            }]
+          }
         }
       });
     } else if (id === BUTTON_TWO) {
       Navigation.mergeOptions(this.props.componentId, {
         topBar: {
-          rightButtons: [{
-            id: BUTTON_ONE,
-            testID: BUTTON_ONE,
-            title: 'One',
-            color: 'red'
-          }],
-          leftButtons: [{
-            id: BUTTON_LEFT,
-            testID: BUTTON_LEFT,
-            icon: require('../../img/navicon_add.png'),
-            title: 'Left',
-            color: 'purple'
-          }]
+          buttons: {
+            left: [{
+              id: BUTTON_LEFT,
+              testID: BUTTON_LEFT,
+              icon: require('../../img/navicon_add.png'),
+              title: 'Left',
+              color: 'purple'
+            }],
+            right: [{
+              id: BUTTON_ONE,
+              testID: BUTTON_ONE,
+              title: 'One',
+              color: 'red'
+            }]
+          }
         }
       });
     } else if (id === BUTTON_LEFT) {

@@ -142,9 +142,9 @@ extern const NSInteger BLUR_TOPBAR_TAG;
 		viewController.navigationController.navigationBar.accessibilityIdentifier = self.testID;
 	}
 	
-	if (self.rightButtons || self.leftButtons) {
+	if (self.buttons.right || self.buttons.left) {
 		_navigationButtons = [[RNNNavigationButtons alloc] initWithViewController:(RNNRootViewController*)viewController];
-		[_navigationButtons applyLeftButtons:self.leftButtons rightButtons:self.rightButtons];
+		[_navigationButtons applyLeftButtons:self.buttons.left rightButtons:self.buttons.right];
 	}
 	
 	UIImage *image = self.backButtonImage ? [RCTConvert UIImage:self.backButtonImage] : nil;
@@ -170,8 +170,8 @@ extern const NSInteger BLUR_TOPBAR_TAG;
 }
 
 - (void)resetOptions {
-	self.leftButtons = nil;
-	self.rightButtons = nil;
+	self.buttons.left = nil;
+	self.buttons.right = nil;
 }
 
 -(void)storeOriginalTopBarImages:(UIViewController*)viewController {

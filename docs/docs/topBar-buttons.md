@@ -26,14 +26,14 @@ Buttons can be defined in a screen's static options:
 class MyScreen extends Component {
   static get options() {
     topBar: {
-    leftButtons: [
-      {
-        id: 'buttonOne',
-        icon: require('icon.png')
+      buttons: {
+        left: [{
+          id: 'buttonOne',
+          icon: require('icon.png')
+        }],
+        right: []
       }
-    ],
-    rightButtons: [],
-  }
+    }
   
 }
 ```
@@ -47,12 +47,12 @@ Navigation.push(this.props.componentId, {
   component: {
     name: 'navigation.playground.PushedScreen',
     options: {
-      rightButtons: [
-        {
+      buttons: {
+        right: [{
           id: 'buttonOne',
           icon: require('icon.png')
-        }
-      ]
+        }]
+      }
     }
   }
 }
@@ -68,12 +68,12 @@ The following command will set the screen's right buttons. If the screen already
 ```js
 Navigation.mergeOptions(this.props.componentId, {
   topBar: {
-    rightButtons: [
-      {
+    buttons: {
+      right: [{
         id: 'myDynamicButton',
         title: 'My Button'
-      }
-    ]
+      }]
+    }
   }
 });
 ```
@@ -84,7 +84,9 @@ Buttons can be removed by setting zero buttons, as shown in the snippet below.
 ```js
 Navigation.mergeOptions(this.props.componentId, {
   topBar: {
-    rightButtons: []
+    buttons: {
+      right: []
+    }
   }
 });
 ```
