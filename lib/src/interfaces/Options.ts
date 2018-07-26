@@ -192,6 +192,48 @@ export interface  OptionsTopBarBackground {
   };
 }
 
+export interface OptionsTopBarButton {
+  /**
+   * Button id for reference press event
+   */
+  id: string;
+  /**
+   * Set the button icon
+   */
+  icon?: ImageRequireSource;
+  /**
+   * Set the button as a custom component
+   */
+  component?: {
+    name: string;
+  };
+  /**
+   * Set the button text
+   */
+  text?: string;
+  /**
+   * Set the button enabled or disabled
+   * @default true
+   */
+  enabled?: boolean;
+  /**
+   * Disable icon tinting
+   */
+  disableIconTint?: boolean;
+  /**
+   * Set text color
+   */
+  color?: Color;
+  /**
+   * Set text color in disabled state
+   */
+  disabledColor?: Color;
+  /**
+   * Set testID for reference in E2E tests
+   */
+  testID: string;
+}
+
 export interface OptionsTopBar {
   /**
    * Show or hide the top bar
@@ -229,6 +271,14 @@ export interface OptionsTopBar {
    * Back button configuration
    */
   backButton?: OptionsTopBarBackButton;
+  /**
+   * List of buttons to the left
+   */
+  leftButtons?: OptionsTopBarButton[];
+  /**
+   * List of buttons to the right
+   */
+  rightButtons?: OptionsTopBarButton[];
   /**
    * Background configuration
    */

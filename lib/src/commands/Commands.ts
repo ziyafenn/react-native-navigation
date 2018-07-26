@@ -20,7 +20,7 @@ export class Commands {
     this.layoutTreeCrawler.crawl(root);
 
     const modals = _.map(input.modals, (modal) => {
-      const modalLayout = this.layoutTreeParser.sparse(modal);
+      const modalLayout = this.layoutTreeParser.parse(modal);
       this.layoutTreeCrawler.crawl(modalLayout);
       return modalLayout;
     });
