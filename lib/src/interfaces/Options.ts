@@ -1,3 +1,4 @@
+// tslint:disable jsdoc-format
 import { ImageRequireSource, Insets } from 'react-native';
 
 type Color = string;
@@ -5,26 +6,67 @@ type FontFamily = string;
 type LayoutOrientation = 'portrait' | 'landscape';
 type AndroidDensityNumber = number;
 
-interface OptionsStatusBar {
-  // Change the statusbar visibility (default: true)
-  visible?: boolean;
-  // Change the statusbar style (default: light)
-  style?: 'light' | 'dark';
+export interface OptionsSplitView {
+  /**
+   * Master view display mode
+   * @default 'auto'
+   */
+  displayMode: 'auto' | 'visible' | 'hidden' | 'overlay';
+  /**
+   * Master view side. Leading is left. Trailing is right.
+   * @default 'leading'
+   */
+  primaryEdge: 'leading' | 'trailing';
+  /**
+   * Set the minimum width of master view
+   */
+  minWidth: number;
+  /**
+   * Set the maximum width of master view
+   */
+  maxWidth: number;
+}
 
-  // Android specific
+export interface OptionsStatusBar {
+  /**
+   * Set the status bar visibility
+   * @default true
+   */
+  visible?: boolean;
+  /**
+   * Set the text color of the status bar
+   * @default 'light'
+   */
+  style?: 'light' | 'dark';
+  /**
+   * Set the background color of the status bar
+   * #### (Android specific)
+   */
   backgroundColor: Color;
+  /**
+   * Draw screen behind the status bar
+   * #### (Android specific)
+   */
   drawBehind: boolean;
 }
 
-interface OptionsLayout {
+export interface OptionsLayout {
+  /**
+   * Set the screen background color
+   */
   backgroundColor?: Color;
+  /**
+   * Set the allowed orientations
+   */
   orientation?: LayoutOrientation[];
-
-  // Android specific
+  /**
+   * Layout top margin
+   * #### (Android specific)
+   */
   topMargin: number;
 }
 
-enum OptionsModalPresentationStyle {
+export enum OptionsModalPresentationStyle {
   'formSheet',
   'pageSheet',
   'overFullScreen',
@@ -35,60 +77,101 @@ enum OptionsModalPresentationStyle {
   'none',
 }
 
-interface OptionsTopBarLargeTitle {
+export interface OptionsTopBarLargeTitle {
+  /**
+   * Enable large titles
+   */
   visible?: boolean;
+  /**
+   * Set the font size of large title's text
+   */
   fontSize?: number;
+  /**
+   * Set the color of large title's text
+   */
   color?: Color;
+  /**
+   * Set the font family of large title's text
+   */
   fontFamily?: FontFamily;
 }
 
-interface OptionsTopBarTitle {
+export interface OptionsTopBarTitle {
+  /**
+   * Text to display in the title area
+   */
   text?: string;
+  /**
+   * Font size
+   */
   fontSize?: number;
+  /**
+   * Text color
+   */
   color?: Color;
+  /**
+   * Title font family
+   *
+   * Make sure that the font is available
+   */
   fontFamily?: FontFamily;
+  /**
+   * Custom component as the title view
+   */
   component?: {
-    name?: string;
-    alignment?: 'center';
+    name: string;
+    alignment?: 'center' | 'fill';
   };
-
-  // Android specific
-  height: number; // dp
+  /**
+   * Top Bar title height in densitiy pixels
+   * #### (Android specific)
+   */
+  height: number;
 }
 
-interface OptionsTopBarSubtitle {
+export interface OptionsTopBarSubtitle {
+  /**
+   * Set subtitle text
+   */
   text?: string;
+  /**
+   * Set subtitle font size
+   */
   fontSize?: number;
+  /**
+   * Set subtitle color
+   */
   color?: Color;
+  /**
+   * Set subtitle font family
+   */
   fontFamily?: FontFamily;
+  /**
+   * Set subtitle alignment
+   */
   alignment?: 'center';
 }
 
-interface OptionsTopBarBackButton {
-
+export interface OptionsTopBarBackButton {
   /**
    * Image to show as the back button
    */
   icon: ImageRequireSource;
-
   /**
    * Weither the back button is visible or not
    * @default true
    */
   visible: boolean;
-
   /**
    * Set the back button title
    * #### (iOS specific)
    */
   title: string;
-
   /**
    * Show title or just the icon
    * #### (iOS specific)
    */
   showTitle: boolean;
-
   /**
    * Back button icon or text color
    * #### (Android specific)
@@ -96,12 +179,11 @@ interface OptionsTopBarBackButton {
   color?: Color;
 }
 
-interface  OptionsTopBarBackground {
+export interface  OptionsTopBarBackground {
   /**
    * Background color of the top bar
    */
   color?: Color;
-
   /**
    * Set a custom component for the Top Bar background
    */
@@ -110,7 +192,7 @@ interface  OptionsTopBarBackground {
   };
 }
 
-interface OptionsTopBar {
+export interface OptionsTopBar {
   /**
    * Show or hide the top bar
    */
@@ -222,61 +304,158 @@ interface OptionsTopBar {
   elevation?: AndroidDensityNumber;
 }
 
-interface OptionsBottomTabs {
+export interface OptionsBottomTabs {
+  /**
+   * Show or hide the bottom tabs
+   */
   visible?: boolean;
+  /**
+   * Enable animations when toggling visibility
+   */
   animate?: boolean;
+  /**
+   * Switch to another screen within the bottom tabs via index (starting from 0)
+   */
   currentTabIndex?: number;
+  /**
+   * Switch to another screen within the bottom tabs via screen name
+   */
   currentTabId?: string;
+  /**
+   * Set a testID to reference the bottom tabs
+   */
   testID?: string;
+  /**
+   * Draw screen component under the tab bar
+   */
   drawBehind?: boolean;
+  /**
+   * Set a background color for the bottom tabs
+   */
   backgroundColor?: Color;
-
-  // iOS specific
+  /**
+   * Control the Bottom Tabs blur style
+   * #### (iOS specific)
+   * @requires translucent: true
+   * @default 'default'
+   */
   barStyle?: 'default' | 'black';
+  /**
+   * Allows the Bottom Tabs to be translucent (blurred)
+   * #### (iOS specific)
+   * @requires transparent: false
+   */
   translucent?: boolean;
+  /**
+   * Hide the top line of the Tab Bar
+   * #### (iOS specific)
+   */
   hideShadow?: boolean;
-
-  // Android specific
+  /**
+   * Control the text display mode below the tab icon
+   * #### (Android specific)
+   */
   titleDisplayMode?: 'alwaysShow' | 'showWhenActive' | 'alwaysHide';
 }
 
-interface OptionsBottomTab {
+export interface OptionsBottomTab {
+  /**
+   * Set the text to display below the icon
+   */
   text?: string;
+  /**
+   * Set the text in a badge that is overlayed over the component
+   */
   badge?: string;
+  /**
+   * Set a testID to reference the tab in E2E tests
+   */
   testID?: string;
+  /**
+   * Set the tab icon
+   */
   icon?: ImageRequireSource;
+  /**
+   * Set the icon tint
+   */
   iconColor?: Color;
+  /**
+   * Set the text color
+   */
   textColor?: Color;
+  /**
+   * Set the selected icon tint
+   */
   selectedIconColor?: Color;
+  /**
+   * Set the selected text color
+   */
   selectedTextColor?: Color;
+  /**
+   * Set the text font family
+   */
   fontFamily?: FontFamily;
+  /**
+   * Set the text font size
+   */
   fontSize?: number;
-
-  // iOS specific
+  /**
+   * Set the insets of the icon
+   * #### (iOS specific)
+   */
   iconInsets?: Insets;
+  /**
+   * Set selected icon image
+   * #### (iOS specific)
+   */
   selectedIcon?: ImageRequireSource;
-  disableIconTint?: boolean; // set true if you want to disable the icon tinting
+  /**
+   * Set true if you want to disable the icon tinting
+   * #### (iOS specific)
+   */
+  disableIconTint?: boolean;
+  /**
+   * Set true if you want to disable the text tinting
+   * #### (iOS specific)
+   */
   disableSelectedIconTint?: boolean;
-
-  // Android specific
+  /**
+   * Set the font size for selected tabs
+   * #### (Android specific)
+   */
   selectedFontSize?: number;
 }
 
-interface SideMenuSide {
+export interface SideMenuSide {
+  /**
+   * Show or hide the side menu
+   */
   visible?: boolean;
+  /**
+   * Enable or disable the side menu
+   */
   enabled?: boolean;
 }
 
-interface OptionsSideMenu {
+export interface OptionsSideMenu {
+  /**
+   * Configure the left side menu
+   */
   left?: SideMenuSide;
+  /**
+   * Configure the right side menu
+   */
   right?: SideMenuSide;
 }
 
-interface OptionsOverlay {
+export interface OptionsOverlay {
+  /**
+   * Capture touches outside of the Component View
+   */
   interceptTouchOutside?: boolean;
 }
 
-interface PreviewAction {
+export interface OptionsPreviewAction {
   /**
    * Reference ID to get callbacks from
    */
@@ -292,10 +471,10 @@ interface PreviewAction {
   /**
    * Subactions that will be shown when this action is pressed.
    */
-  actions?: PreviewAction[];
+  actions?: OptionsPreviewAction[];
 }
 
-interface OptionsPreview {
+export interface OptionsPreview {
   /**
    * Pass a react node tag to mark a SourceRect for a specific
    * peek and pop preview element.
@@ -319,84 +498,190 @@ interface OptionsPreview {
    * List of actions that will appear underneath the preview window.
    * They can be nested for sub actions.
    */
-  actions?: PreviewAction[];
+  actions?: OptionsPreviewAction[];
 }
 
-interface OptionsAnimationPropertyConfig {
+export interface OptionsAnimationPropertyConfig {
+  /**
+   * Animate from this value, ex. 0
+   */
   from: number;
+  /**
+   * Animate to this value, ex. 1
+   */
   to: number;
-  duration?: number; // Default value is 300 ms
-  startDelay?: number; // Default value is 0
+  /**
+   * Animation duration
+   * @default 300
+   */
+  duration?: number;
+  /**
+   * Animation delay
+   * @default 0
+   */
+  startDelay?: number;
+  /**
+   * Animation interplation
+   */
   interpolation?: 'accelerate' | 'decelerate';
 }
 
-interface OptionsAnimationProperties {
+export interface OptionsAnimationProperties {
+  /**
+   * Animate the element over translateX
+   */
   x?: OptionsAnimationPropertyConfig;
+  /**
+   * Animate the element over translateY
+   */
   y?: OptionsAnimationPropertyConfig;
+  /**
+   * Animate the element over opacity
+   */
   alpha?: OptionsAnimationPropertyConfig;
+  /**
+   * Animate the element over scaleX
+   */
   scaleX?: OptionsAnimationPropertyConfig;
+  /**
+   * Animate the element over scaleY
+   */
   scaleY?: OptionsAnimationPropertyConfig;
+  /**
+   * Animate the element over rotationX
+   */
   rotationX?: OptionsAnimationPropertyConfig;
+  /**
+   * Animate the element over rotationY
+   */
   rotationY?: OptionsAnimationPropertyConfig;
+  /**
+   * Animate the element over rotation
+   */
   rotation?: OptionsAnimationPropertyConfig;
 }
 
-interface OptionsAnimationPropertiesId extends OptionsAnimationProperties {
+export interface OptionsAnimationPropertiesId extends OptionsAnimationProperties {
+  /**
+   * ID of the Top Bar we want to animate
+   */
   id?: string;
 }
 
-interface OptionsAnimationSeparate {
+export interface OptionsAnimationSeparate {
+  /**
+   * Configure animations for the top bar
+   */
   topBar?: OptionsAnimationPropertiesId;
+  /**
+   * Configure animations for the bottom tabs
+   */
   bottomTabs?: OptionsAnimationPropertiesId;
+  /**
+   * Configure animations for the content (Screen)
+   */
   content?: OptionsAnimationPropertiesId;
 }
 
-interface OptionsAnimations {
+export interface OptionsAnimations {
+  /**
+   * Configure the start app animation
+   */
   startApp?: OptionsAnimationProperties;
+  /**
+   * Configure what animates when a screen is pushed
+   */
   push?: OptionsAnimationSeparate;
+  /**
+   * Configure what animates when a screen is popped
+   */
   pop?: OptionsAnimationSeparate;
+  /**
+   * Configure what animates when modal is shown
+   */
   showModal?: OptionsAnimationProperties;
+  /**
+   * Configure what animates when modal is dismissed
+   */
   dismissModal?: OptionsAnimationProperties;
 }
 
 export interface Options {
+  /**
+   * Configure the status bar
+   */
   statusBar?: OptionsStatusBar;
+  /**
+   * Configure the layout
+   */
   layout?: OptionsLayout;
+  /**
+   * Configure the presentation style of the modal
+   */
   modalPresentationStyle?: OptionsModalPresentationStyle;
+  /**
+   * Configure the top bar
+   */
   topBar?: OptionsTopBar;
+  /**
+   * Configure the bottom tabs
+   */
   bottomTabs?: OptionsBottomTabs;
+  /**
+   * Configure the bottom tab associated to the screen
+   */
   bottomTab?: OptionsBottomTab;
+  /**
+   * Configure the side menu
+   */
   sideMenu?: OptionsSideMenu;
+  /**
+   * Configure the overlay
+   */
   overlay?: OptionsOverlay;
-
   /**
    * Animation used for navigation commands that modify the layout
    * hierarchy can be controlled in options.
    *
    * Animations can be modified per command and it's also possible
    * to change the default animation for each command.
+   *
+   * Example:
+```js
+startApp: {
+  y: {
+    from: 1000,
+    to: 0,
+    duration: 500,
+    interpolation: 'accelerate',
+  },
+  alpha: {
+    from: 0,
+    to: 1,
+    duration: 400,
+    startDelay: 100,
+    interpolation: 'accelerate'
+  }
+}
+```
    */
   animations?: OptionsAnimations;
-
   /**
    * Preview configuration for Peek and Pop
    * #### (iOS specific)
    */
   preview?: OptionsPreview;
-
   /**
    * Enable or disable swipe back to pop gesture
    * #### (iOS specific)
    * @default true
    */
   popGesture?: boolean;
-
   /**
    * Background image for the screen
    * #### (iOS specific)
    */
   backgroundImage?: ImageRequireSource;
-
   /**
    * Background image for the Navigation View
    * #### (iOS specific)
