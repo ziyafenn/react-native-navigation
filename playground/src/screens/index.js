@@ -25,6 +25,8 @@ const TopBarBackground = require('./TopBarBackground');
 const ComplexLayout = require('./ComplexLayout');
 const SearchScreen = require('./SearchScreen');
 const KeyboardScreen = require('./KeyboardScreen');
+const BottomTabsPushedScreen = require('./BottomTabsPushedScreen');
+const BottomTabsPushingScreen = require('./BottomTabsPushingScreen');
 
 function registerScreens() {
   Navigation.registerComponent(`navigation.playground.CustomTransitionDestination`, () => CustomTransitionDestination);
@@ -53,6 +55,8 @@ function registerScreens() {
   Navigation.registerComponent('TopBarBackground', () => TopBarBackground);
   Navigation.registerComponent('navigation.playground.SearchControllerScreen', () => SearchScreen);
   Navigation.registerComponent('navigation.playground.KeyboardScreen', () => KeyboardScreen);
+  Navigation.registerComponent('navigation.playground.BottomTabsPushedScreen', () => BottomTabsPushedScreen);
+  Navigation.registerComponent('navigation.playground.BottomTabsPushingScreen', () => BottomTabsPushingScreen);
 }
 
 module.exports = {

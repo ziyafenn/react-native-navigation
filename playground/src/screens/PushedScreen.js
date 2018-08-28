@@ -77,6 +77,7 @@ class PushedScreen extends Component {
   }
 
   render() {
+    return (<View></View>);
     const stackPosition = this.getStackPosition();
     return (
       <View style={styles.root}>

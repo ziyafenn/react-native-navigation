@@ -1,6 +1,6 @@
 const React = require('react');
 const { Component } = require('react');
-const { View, Text, Platform, TouchableHighlight } = require('react-native');
+const { View, ScrollView, Text, Platform, TouchableHighlight } = require('react-native');
 
 const testIDs = require('../testIDs');
 const Button = require('./Button');
@@ -31,7 +31,7 @@ class WelcomeScreen extends Component {
 
   render() {
     return (
-      <View style={styles.bar}>
+      <ScrollView style={styles.bar}>
         <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
         <View style={styles.root} key={'root'}>
           <Text testID={testIDs.WELCOME_SCREEN_HEADER} style={styles.h1}>{`React Native Navigation!`}</Text>
@@ -56,10 +56,11 @@ class WelcomeScreen extends Component {
           <Button title='Provided Id' testID={testIDs.PROVIDED_ID} onPress={this.onClickProvidedId} />
           <Button title='Complex Layout' testID={testIDs.COMPLEX_LAYOUT_BUTTON} onPress={this.onClickComplexLayout} />
           <Button title='Push SearchBar' testID={testIDs.SHOW_TOPBAR_SEARCHBAR} onPress={this.onClickSearchBar} />
+          <Button title='Bottom Tabs Screens' testID={testIDs.SWITCH_TO_BOTTOM_TABS_SCREENS} onPress={this.onClickTopBarScreens} />
           <Text style={styles.footer}>{`this.props.componentId = ${this.props.componentId}`}</Text>
         </View>
         <View style={{ width: 2, height: 2, borderRadius: 1, backgroundColor: 'red', alignSelf: 'center' }} />
-      </View>
+      </ScrollView>
     );
   }
 
@@ -547,6 +548,93 @@ class WelcomeScreen extends Component {
       }
     });
   }
+  onClickTopBarScreens = () => {
+    Navigation.setRoot({
+      root: {
+        bottomTabs: {
+          children: [
+            {
+              stack: {
+                id: 'TAB1_ID',
+                children: [
+                  {
+                    component: {
+                      name: 'navigation.playground.BottomTabsPushingScreen',
+                      options: {
+                        topBar: {
+                          visible: true,
+                          title: {
+                            text: 'Bottom Tabs'
+                          }
+                        },
+                        bottomTab: {
+                          text: 'Tab',
+                        }
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              component: {
+                name: 'navigation.playground.BottomTabsPushingScreen',
+                options: {
+                  topBar: {
+                    visible: true,
+                    title: {
+                      text: 'Bottom Tabs'
+                    }
+                  },
+                  bottomTab: {
+                    text: '2',
+                  }
+                }
+              }
+            },
+            {
+              component: {
+                name: 'navigation.playground.BottomTabsPushingScreen',
+                options: {
+                  topBar: {
+                    visible: true,
+                    title: {
+                      text: 'Bottom Tabs'
+                    }
+                  },
+                  bottomTab: {
+                    text: '3',
+                  }
+                }
+              }
+            },
+            {
+              component: {
+                name: 'navigation.playground.BottomTabsPushingScreen',
+                options: {
+                  topBar: {
+                    visible: true,
+                    title: {
+                      text: 'Bottom Tabs'
+                    }
+                  },
+                  bottomTab: {
+                    text: '4',
+                  }
+                }
+              }
+            }
+          ],
+          // options: {
+          //   bottomTabs: {
+          //     titleDisplayMode: 'alwaysShow',
+          //     // testID: testIDs.BOTTOM_TABS_ELEMENT
+          //   }
+          // }
+        }
+      }
+    });
+  }
 }
 
 module.exports = WelcomeScreen;
@@ -561,8 +649,7 @@ const styles = {
   bar: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#e8e8e8',
-    justifyContent: 'space-between'
+    backgroundColor: '#e8e8e8'
   },
   h1: {
     fontSize: 24,
