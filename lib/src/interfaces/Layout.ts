@@ -98,11 +98,11 @@ export interface LayoutSplitView {
   /**
    * Set master layout (the smaller screen, sidebar)
    */
-  master: Layout;
+  master?: Layout;
   /**
    * Set detail layout (the larger screen, flexes)
    */
-  detail: Layout;
+  detail?: Layout;
   /**
    * Configure split view
    */
@@ -113,7 +113,7 @@ export interface LayoutRoot {
   /**
    * Set the root
    */
-  root: Layout;
+  root?: Layout;
   modals?: any;
   overlays?: any;
 }
