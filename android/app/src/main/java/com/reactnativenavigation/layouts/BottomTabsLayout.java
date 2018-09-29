@@ -78,9 +78,14 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
         createBottomTabs();
         addBottomTabs();
         addScreenStacks();
-        createSnackbarContainer();
         showInitialScreenStack();
         setInitialTabIndex();
+        for (ScreenStack screenStack : screenStacks) {
+          if (screenStack.peek().getScreenParams().getFab() != null) {
+              createFabAndSnackbarContainer();
+              break;
+          }
+        }
     }
 
     private void setInitialTabIndex() {
@@ -136,7 +141,7 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
         getScreenStackParent().addView(bottomTabs, lp);
     }
 
-    private void createSnackbarContainer() {
+    private void createFabAndSnackbarContainer() {
         snackbarAndFabContainer = new SnackbarAndFabContainer(getContext(), this);
         RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT);
         alignSnackbarContainerWithBottomTabs(lp, getCurrentScreen().getStyleParams());
@@ -276,13 +281,18 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
 
     @Override
     public void showSnackbar(SnackbarParams params) {
+        if (snackbarAndFabContainer == null) {
+                    createFabAndSnackbarContainer();
+                }
         final String eventId = getCurrentScreenStack().peek().getNavigatorEventId();
         snackbarAndFabContainer.showSnackbar(eventId, params);
     }
 
     @Override
     public void dismissSnackbar() {
-        snackbarAndFabContainer.dismissSnackbar();
+        if (snackbarAndFabContainer != null) {
+            snackbarAndFabContainer.dismissSnackbar();
+        }
     }
 
     @Override
@@ -416,7 +426,9 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
                     public void onScreenPopAnimationEnd() {
                         if (isCurrentStack(stack)) {
                             setBottomTabsStyleFromCurrentScreen();
-                            alignSnackbarContainerWithBottomTabs((LayoutParams) snackbarAndFabContainer.getLayoutParams(), params.styleParams);
+                             if (snackbarAndFabContainer != null) {
+                                alignSnackbarContainerWithBottomTabs((LayoutParams) snackbarAndFabContainer.getLayoutParams(), params.styleParams);
+                            }
                             EventBus.instance.post(new ScreenChangedEvent(stack.peek().getScreenParams()));
                         }
                     }
@@ -433,8 +445,10 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
                 screenStack.newStack(params, createScreenLayoutParams(params));
                 if (isCurrentStack(screenStack)) {
                     setStyleFromScreen(params.styleParams);
-                    alignSnackbarContainerWithBottomTabs((LayoutParams) snackbarAndFabContainer.getLayoutParams(), params.styleParams);
-                    EventBus.instance.post(new ScreenChangedEvent(params));
+                    if (snackbarAndFabContainer != null) {
+                        alignSnackbarContainerWithBottomTabs((LayoutParams) snackbarAndFabContainer.getLayoutParams(), params.styleParams);
+                    }
+                     EventBus.instance.post(new ScreenChangedEvent(params));
                 }
             }
         });
@@ -470,7 +484,9 @@ public class BottomTabsLayout extends BaseLayout implements AHBottomNavigation.O
 
     @Override
     public void destroy() {
-        snackbarAndFabContainer.destroy();
+      if (snackbarAndFabContainer != null) {
+          snackbarAndFabContainer.destroy();
+      }
         for (ScreenStack screenStack : screenStacks) {
             screenStack.destroy();
         }
