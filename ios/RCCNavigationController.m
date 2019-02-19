@@ -13,6 +13,7 @@
 #import "RCCCustomBarButtonItem.h"
 #import "UIViewController+Rotation.h"
 #import "RCTHelpers.h"
+#import <React/RCTNavItemManager.h>
 #import "RCTConvert+UIBarButtonSystemItem.h"
 
 @implementation RCCNavigationController {
@@ -418,8 +419,19 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
         NSString *__nullable systemItemName = button[@"systemItem"];
         UIBarButtonSystemItem systemItem = [RCTConvert UIBarButtonSystemItem:systemItemName];
         
+        id systemIcon = button[@"buttonSystemItem"];
+            UIBarButtonSystemItem systemItemIcon = NSNotFound;
+            if (systemIcon) systemItemIcon = [RCTConvert UIBarButtonSystemItem:button[@"buttonSystemItem"]];
+
+             id buttonColorTag = button[@"buttonColor"];
+            UIColor *buttonColor = nil;
+            if (buttonColorTag) buttonColor = [RCTConvert UIColor:buttonColorTag];
+
         UIBarButtonItem *barButtonItem;
-        if (iconImage) {
+        if (systemItemIcon != NSNotFound) {
+            barButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:systemItemIcon target:self action:@selector(onButtonPress:)];  
+        }
+        else if (iconImage) {
             barButtonItem = [[UIBarButtonItem alloc] initWithImage:iconImage style:UIBarButtonItemStylePlain target:self action:@selector(onButtonPress:)];
         }
         else if (title) {
@@ -465,7 +477,9 @@ NSString const *CALLBACK_ASSOCIATED_ID = @"RCCNavigationController.CALLBACK_ASSO
                 [barButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName : color} forState:UIControlStateDisabled];
             }
         }
-        
+        if (buttonColor) {
+               barButtonItem.tintColor = buttonColor;
+           }
         NSString *testID = button[@"testID"];
         if (testID) {
             barButtonItem.accessibilityIdentifier = testID;
